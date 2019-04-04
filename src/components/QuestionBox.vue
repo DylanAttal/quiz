@@ -10,7 +10,11 @@
           v-for="(answer, index) in answers"
           :key="index"
           @click.prevent="selectAnswer(index)"
-          :class="[selectedIndex === index ? 'selected' : '']"
+          :class="[
+          !answered && selectedIndex === index ? 'selected' : 
+          answered && correctIndex === index ? 'correct' : 
+          answered && selectedIndex === index && correctIndex !== index ? 'incorrect' : ''
+          ]"
         >{{ answer }}</b-list-group-item>
       </b-list-group>
 
