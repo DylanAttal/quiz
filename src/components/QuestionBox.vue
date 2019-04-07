@@ -1,7 +1,9 @@
 <template>
   <div>
     <b-jumbotron>
-      <template slot="lead">{{ currentQuestion.question }}</template>
+      <template slot="lead">
+        <p v-html="currentQuestion.question"></p>
+      </template>
 
       <hr class="my-4">
 
@@ -11,7 +13,9 @@
           :key="index"
           @click.prevent="selectAnswer(index)"
           :class="answerClass(index)"
-        >{{ answer }}</b-list-group-item>
+        >
+          <span v-html="answer"></span>
+        </b-list-group-item>
       </b-list-group>
 
       <b-button
