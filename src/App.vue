@@ -8,10 +8,15 @@
       <b-row>
         <b-col sm="6" offset="3">
           <QuestionBox
-            v-if="questions.length"
+            v-if="numberOfTotalAnswers < 10"
             :currentQuestion="questions[index]"
             :next="next"
             :increment="increment"
+          />
+          <GameOver
+            v-if="numberOfTotalAnswers === 10"
+            :numberOfCorrectAnswers="numberOfCorrectAnswers"
+            :numberOfTotalAnswers="numberOfTotalAnswers"
           />
         </b-col>
       </b-row>
@@ -22,12 +27,14 @@
 <script>
 import Header from "./components/Header.vue";
 import QuestionBox from "./components/QuestionBox.vue";
+import GameOver from "./components/GameOver.vue";
 
 export default {
   name: "app",
   components: {
     Header,
-    QuestionBox
+    QuestionBox,
+    GameOver
   },
   data() {
     return {
