@@ -23,7 +23,7 @@
         @click="submitAnswer"
         :disabled="selectedIndex === null || answered"
       >Submit</b-button>
-      <b-button @click="next" variant="success">Next</b-button>
+      <b-button @click="next" variant="success" :disabled="submitted === false">Next</b-button>
     </b-jumbotron>
   </div>
 </template>
@@ -42,7 +42,8 @@ export default {
       selectedIndex: null,
       correctIndex: null,
       shuffledAnswers: [],
-      answered: false
+      answered: false,
+      submitted: false
     };
   },
   computed: {
@@ -59,6 +60,7 @@ export default {
         this.selectedIndex = null;
         this.answered = false;
         this.shuffleAnswers();
+        this.submitted = false;
       }
     }
   },
@@ -85,6 +87,7 @@ export default {
       this.answered = true;
 
       this.increment(isCorrect);
+      this.submitted = true;
     },
     answerClass(index) {
       let answerClass = "";
