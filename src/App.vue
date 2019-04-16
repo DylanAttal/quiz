@@ -17,6 +17,7 @@
             v-if="numberOfTotalAnswers === 10"
             :numberOfCorrectAnswers="numberOfCorrectAnswers"
             :numberOfTotalAnswers="numberOfTotalAnswers"
+            :newQuestions="newQuestions"
           />
         </b-col>
       </b-row>
@@ -53,16 +54,22 @@ export default {
         this.numberOfCorrectAnswers++;
       }
       this.numberOfTotalAnswers++;
+    },
+    newQuestions() {
+      fetch("https://opentdb.com/api.php?amount=10&category=27&type=multiple", {
+        method: "get"
+      }).then(response => {
+        return response.json().then(jsonData => {
+          this.questions = jsonData.results;
+          this.index = 0;
+          this.numberOfCorrectAnswers = 0;
+          this.numberOfTotalAnswers = 0;
+        });
+      });
     }
   },
   mounted: function() {
-    fetch("https://opentdb.com/api.php?amount=10&category=27&type=multiple", {
-      method: "get"
-    }).then(response => {
-      return response.json().then(jsonData => {
-        this.questions = jsonData.results;
-      });
-    });
+    this.newQuestions();
   }
 };
 </script>
